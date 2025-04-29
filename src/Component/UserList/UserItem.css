@@ -1,0 +1,24 @@
+.UserItem {
+    width: fit-content;
+    padding: 1rem;
+}
+.UserItem .img {
+    width: 10rem;
+}
+.UserItem p {
+    margin: 0;
+    text-align: left;
+}
+.UserItem .wrap-bottom {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.UserItem  .wrap-bottom * {
+    font-size: 14px;
+    
+}
+.UserItem .price {
+    color: rgb(238, 77, 45);
+    font-weight: 600;
+}

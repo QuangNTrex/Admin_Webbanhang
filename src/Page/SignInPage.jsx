@@ -9,19 +9,9 @@ const SignInPage = () => {
   const handleLogin = (data) => {
     console.log('Login with:', data, serverURL);
     navigation("/")
-
     return;
 
-    fetch(serverURL + "/api/admin/account/signin", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: data.username, password: data.password })
-    }).then(res => {
-      const token = res.headers.get('Authorization'); // hoặc 'x-access-token'
-      console.log(token);
-      localStorage.setItem("token", token);
-      return res.json();
-    }).then(data => console.log(data));
+    fetch(serverURL + "/api/account/signin")
   };
 
   return <AuthForm type="signin" onSubmit={handleLogin} />;

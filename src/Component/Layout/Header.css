@@ -7,6 +7,17 @@
     align-items: center;
     position: relative;
   }
+  .header .wrap-center .input-find {
+    width: 40vw;;
+    height: 2rem;
+    padding: 1rem;
+  }
+ 
+  .header .wrap-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .header nav a {
     color: white;
     margin-left: 16px;
@@ -35,12 +46,37 @@
     top: 1.5rem;
     right: 2rem;
     padding-top: 3rem;
-    background-color: var(--green-d);
+    background-color: var(--blue-d);
     position: absolute;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .header .wrap-menu .wrap-center .link {
+    color: white;
+    font-size: 14px;;
+  }
+  .header .wrap-bottom {
+    margin-bottom: 2rem;
+  }
+  .header .wrap-btns {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
   }
   .header .wrap-btns * {
-    color: black;
+    color: white    ;
     font-size: 12px;
   }
+  .header .icon {
+    font-size: 2rem;
+  }
+
+  .header .icon-mini {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+  }
+
 
   

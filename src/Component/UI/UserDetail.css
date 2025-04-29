@@ -1,0 +1,76 @@
+.UserDetail {
+    padding: 6rem;
+    display: flex;
+    flex-direction: column;
+}
+.UserDetail .wrap-top-- {
+    display: flex;
+    justify-content: space-around;
+    align-items: top;
+    padding: 4rem;
+
+
+}
+.UserDetail .wrap-top .wrap-top-left .avatar {
+    width: 5rem;
+}
+.UserDetail .wrap-top .wrap-top-left .name {
+    margin: 0;
+
+}
+.UserDetail .wrap-top .wrap-top-left {
+    display: flex;
+    gap: 2rem;
+    justify-content: top;
+}
+.UserDetail .wrap-top .wrap-top-left .username {
+    text-align: left;
+    font-size: 12px;
+}
+.UserDetail .wrap-top .wrap-top-right {
+    display: flex;
+    gap: 3rem;
+}
+.UserDetail .wrap-top .wrap-top-right .wrap-top-right-left {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+.UserDetail .wrap-top .wrap-top-right .wrap-top-right-left * {
+    text-align: right;
+    margin: 0;
+
+}
+.UserDetail .wrap-top .wrap-top-right .wrap-top-right-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    gap: 16px;
+}
+.UserDetail .wrap-top .wrap-top-right .wrap-top-right-right input {
+    font-size: 1rem;
+    padding: 4px;
+}
+.UserDetail .wrap-bottom .wrap-btn {
+    display: flex;
+    gap: 8rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.UserDetail .wrap-bottom .wrap-btn * {
+    padding: 1rem 2rem;
+    font-size: 1rem;;
+    border: 0;
+}
+.UserDetail .wrap-bottom .wrap-btn .btn-ban {
+    color: white;
+    background-color: rgb(255, 77, 77);
+}
+.UserDetail .wrap-bottom .wrap-btn .btn-delete {
+    background-color: red;
+    color: white
+}
+.UserDetail .wrap-bottom .wrap-btn .btn-update {
+    color: white;
+    background-color: rgb(59, 59, 255);
+}
