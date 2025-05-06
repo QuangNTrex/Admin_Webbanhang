@@ -30,7 +30,7 @@ const Header = () => {
         <div className="wrap-center">
             <input onKeyDown={(e) => {
                 if (e.key === "Enter" && keyword.trim()) {
-                    navigator(`/search?q=${encodeURIComponent(keyword)}`);
+                    navigator(`/search/product?q=${encodeURIComponent(keyword)}`);
                     setKeyword("");
                 }
             }} onChange={(e) => setKeyword(e.target.value)} value={keyword} type="text" className="input-find" placeholder='Tìm người dùng, sản phẩm tại đây'/>

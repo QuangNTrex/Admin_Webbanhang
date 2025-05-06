@@ -20,7 +20,7 @@ function App() {
             <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route index element={<HomePage />} />
-              <Route path='/search' element={<SearchPage/>}/>
+              <Route path='/search/:type' element={<SearchPage/>}/>
               <Route path="/detail/:id" element={<ProductDetailPage/>}/>
               <Route path="/cart" element={<CartPage/>}/>
               <Route path="/order" element={<OrderPage/>}/>

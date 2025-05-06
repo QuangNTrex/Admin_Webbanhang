@@ -112,7 +112,7 @@ const HomePage = () => {
   return (
     <div className="HomePage"> 
       <div className="wrap-users">
-        <h2 className="title">User</h2>
+        <h2 className="title">Người dùng</h2>
         <UserList users={users}/>
       </div>
     </div>
