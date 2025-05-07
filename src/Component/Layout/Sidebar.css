@@ -1,0 +1,9 @@
+.Sidebar {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 4rem;
+    width: 15rem;
+}

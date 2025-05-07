@@ -1,4 +1,4 @@
-// src/pages/HomePage.jsx
+// src/pages/UserPage.jsx
 import React, { useEffect, useState } from 'react';
 import NavCategory from '../Component/UI/NavCategory';
 import ProductList from '../Component/UI/ProductList';
@@ -6,7 +6,7 @@ import { serverURL } from '../libs/http';
 import { useNavigate } from 'react-router-dom';
 import UserList from '../Component/UserList/UserList';
 
-const HomePage = () => {
+const UserPage = () => {
   const [users, setUsers] = useState([{
     state: "BAN",
     gender: "Male",
@@ -110,13 +110,13 @@ const HomePage = () => {
    
 
   return (
-    <div className="HomePage"> 
+    <div className="UserPage"> 
       <div className="wrap-users">
-        <h2 className="title">Chào mừng đến với trang Admin</h2>
-        
+        <h2 className="title">Người dùng</h2>
+        <UserList users={users}/>
       </div>
     </div>
   );
 };
 
-export default HomePage;
+export default UserPage;

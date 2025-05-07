@@ -1,37 +1,74 @@
 // src/pages/CategoryPage.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import ProductList from '../Component/UI/ProductList';
 import { serverURL } from '../libs/http';
+import CategoryItem from '../Component/UI/CategoryItem';
+import CategoryList from '../Component/UI/CategoryList';
 
 const CategoryPage = () => {
-  const location = useLocation();
+  const [inputValue, setInputValue] = useState("");
+   const location = useLocation();
   const navigate = useNavigate();
-  const category = location.state.category;
-  const [products, setProducts] = useState([{price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"},{price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"},{price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}, {price: 1000,title: "abc", description: "abc", images: "https://scontent.fdad3-1.fna.fbcdn.net/v/t39.30808-6/492804809_1331048907962344_9076142306362101331_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeH5-d3gebRUQ75CWelguqfV9L4dHzGJ2wv0vh0fMYnbCxSoSR_xSE_4KU-kFzZJJN2_iYZt4TM09qzP5ZbPmQW1&_nc_ohc=7mrz0hB3WYsQ7kNvwFC67hE&_nc_oc=AdmFuOEWyX57JbG5-IRr1vmDeL7JUvQ5WG19YusX5nkjJb6cXPWzARuNuPBUhnBfydg&_nc_zt=23&_nc_ht=scontent.fdad3-1.fna&_nc_gid=tUX1phrybSDVDmrzSh5elQ&oh=00_AfHnpXvioz7yhiK9sN_p77UNaFRffdomOh-Fi4i-V6vs7w&oe=68120A06"}]);
+  const [categories, setCategories] = useState([
+    {categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},{categoryID: 123, categoryName: "cake",},
+  ]);
 
-  useEffect(() => {
-    fetch(serverURL + "/api/product", {
+   useEffect(() => {
+    fetch(serverURL + "/api/category", {
         method: "GET",
         header: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer YOUR_TOKEN_HERE'
         },
-        body: JSON.stringify({categoryID: category.categoryID, pageNumber: 1, pageSize: 20})
     }).then(res => res.json()).then(data => {
-        setProducts(data);
+        setCategories(data);
     }).catch(err => console.log(err))
-}, [category]);
+}, []);
 
-const clickHandler = (product) => {
-  navigate("/detail/" + product.productID);
-}
-  
+  const addHandler = () => {
+    fetch(serverURL + "/api/category", {
+      method: "POST",
+      header: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_TOKEN_HERE'
+      },
+      body: JSON.stringify({CategoryName: inputValue})
+  }).then(res => res.json()).then(data => {
+      setCategories(prev => [{categoryName: inputValue},...prev]);
+  }).catch(err => {
+    setCategories(prev => [{categoryName: inputValue},...prev]);
+  })
+  setInputValue("");
+  }
+
+  const deleteHandler = (categoryID) => {
+    fetch(serverURL + "/api/category/" + categoryID, {
+      method: "DELETE",
+      header: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_TOKEN_HERE'
+      }
+  }).then(res => res.json()).then(data => {
+      setCategories(prev => prev.filter(e => e.categoryID !== categoryID));
+  }).catch(err => {
+    setCategories(prev => prev.filter(e => e.categoryID !== categoryID));
+  })
+  }
+
+
 
   return (
     <div className="CategoryPage">
-        <h2 className="title">Danh mục: {category.categoryName}</h2>
-        <ProductList clickHandler={clickHandler} products={products}/>
+        <div className="wrap-top">
+          <h2 className="title">Thêm mới danh mục</h2>
+          <div className="wrap-form" style={{display: "flex", gap: "2rem", justifyContent: "center", margin: "4rem"}} >
+
+            <input value={inputValue} onChange={e => setInputValue(e.target.value)}  type="text" className="title" style={{padding: "1rem"}}/>
+            <button className="btn btn-add" style={{padding: "1rem 2rem", border: 0, backgroundColor: "green", color: "white"}} onClick={addHandler}>Thêm</button>
+          </div>
+        </div>
+        <h2 className="title">Danh mục</h2>
+        <CategoryList onDelete={deleteHandler} categories={categories}/>
     </div>
   );
 };
