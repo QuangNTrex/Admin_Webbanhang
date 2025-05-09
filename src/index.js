@@ -5,13 +5,16 @@ import App from './App';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
-    <App />
-  </React.StrictMode>
-  </Provider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </BrowserRouter>
 );
 
