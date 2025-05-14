@@ -29,17 +29,17 @@ const UserPage = () => {
 
   return (
     <div className="UserPage">
-      <div className="wrap-users">
+      <div className="wrap-users" >
         <h2 className="title">Người dùng</h2>
-        <div style={{ border: "1px solid black" }}>
+        <div style={{ border: "1px solid black", marginBottom: "2rem" }}>
           <h3>Active</h3>
           <UserList users={users.filter(user => user.status === "Active")} />
         </div>
-        <div style={{ border: "1px solid black" }}>
+        <div style={{ border: "1px solid black", marginBottom: "2rem" }}>
           <p className="">Banned</p>
           <UserList users={users.filter(user => user.status === "Banned")} />
         </div>
-        <div style={{ border: "1px solid black" }}>
+        <div style={{ border: "1px solid black", marginBottom: "2rem" }}>
           <p className="">Inactive</p>
           <UserList users={users.filter(user => user.status === "Inactive")} />
         </div>

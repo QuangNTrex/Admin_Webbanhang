@@ -9,7 +9,7 @@ const MainLayout = () => {
   return (
     <>
       <Header />
-      <main style={{ padding: '20px', minHeight: '70vh', display: "flex", gap: "2rem" }}>
+      <main style={{  minHeight: '70vh', display: "flex", gap: "2rem" }}>
         <Sidebar/>
         <div style={{width: "100%"}}>
 
