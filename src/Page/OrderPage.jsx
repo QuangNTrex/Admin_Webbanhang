@@ -7,10 +7,13 @@ import OrderItem from "../Component/UI/OrderItem";
 
 
 const OrderPage = () => {
+    const token = localStorage.getItem("token");
     const dispatch = useDispatch();
     const [orders, setOrders] = useState([{
         orderID: "1234 ",
         createdAt: 1745728763738,
+        status: "",
+        
         buyer: {
             userID: "ababa",
             name: "ahihi",
@@ -31,42 +34,49 @@ const OrderPage = () => {
         }]
     }]);
     const user = useSelector(state => state.user);
-    const deleteOrderHandler = (orderID) => {
-        fetch(serverURL + "/api/order/id?id=" + orderID, {
-            method: "DELETE",
-            header: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer YOUR_TOKEN_HERE'
+    const confirmOrderHandler = (orderID) => {
+        fetch(serverURL + "/api/order?id=" + orderID, {
+            method: "PUT",
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({id: orderID})
+            body: JSON.stringify({
+
+            })
         }).then(res => res.json()).then(data => {
             
         }).catch(err => {
             console.log(err);
         })
 
-        setOrders(prev => prev.filter(e => e.orderID !== orderID));
+        setOrders(prev => prev.map(e => {
+            if(e.orderID === orderID) {
+                e.status = "CONFIRMED";
+            }
+            return e;
+        }));
     } 
 
      useEffect(() => {
-                fetch(serverURL + "/api/order/userid?id=" + user.userID, {
-                    method: "GET",
-                    header: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer YOUR_TOKEN_HERE'
-                    },
-                    body: JSON.stringify({userID: user.userID})
-                }).then(res => res.json()).then(data => {
-                   setOrders(data);
-                }).catch(err => {
-                    
-                })
-            }, [user]);
+        fetch(serverURL + "/api/order/userid?id=" + user.userID, {
+            method: "GET",
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({userID: user.userID})
+        }).then(res => res.json()).then(data => {
+            setOrders(data);
+        }).catch(err => {
+            
+        })
+    }, [user]);
 
     return (
         <div className="OrderPage">
-            <h2 className="title">Đơn đã đặt</h2>
-            {orders.map(e => <OrderItem order={e} onDeleteOrder={deleteOrderHandler}/>)}
+            <h2 className="title">Đơn người dùng đã đặt</h2>
+            {orders.map(e => <OrderItem order={e} onConfirmOrder={confirmOrderHandler}/>)}
         </div>
     );
 };

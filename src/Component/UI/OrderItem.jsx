@@ -6,7 +6,7 @@ import CheckoutItem from './CheckoutItem';
 
 
 
-const OrderItem = ({order, onDeleteOrder = () => {}}) => {
+const OrderItem = ({order, onDeleteOrder = () => {}, onConfirmOrder = () => {}}) => {
     const navigate = useNavigate()
     
     return <div className="OrderItem" >
@@ -35,8 +35,15 @@ const OrderItem = ({order, onDeleteOrder = () => {}}) => {
         <div className="OrderItem--wrap-bottom">
             <div className="OrderItem--wrap-bottom-right">
 
-            <h3 className="total-price">Thành tiền: {order.orderDetails.reduce((total, e) => total + e.price, 0)} VND</h3>
-            <button className="btn-delete" onClick={onDeleteOrder.bind(null, order.orderID)}>Hủy đơn hàng</button>
+            <h3 className="total-price"style={{textAlign: "right"}}>Thành tiền: {order.orderDetails.reduce((total, e) => total + e.price, 0)} VND</h3>
+            {order.status !== "CANCELATION" && <div className="wrap-button" >
+               {order.status !== "CONFIRMED" && <button className="btn-confirm btn" onClick={onConfirmOrder.bind(null, order.orderID)}>Xác nhận đơn hàng</button>}
+               {order.status === "CONFIRMED" && <p>Đã xác nhận đơn hàng</p>}
+            </div>}
+            {order.status === "CANCELATION" && <div>
+                <p>Người dùng đã hủy đơn hàng này.</p>
+                <p>Lý do hủy đơn hàng: {order.reasonCancelation}</p>    
+            </div>}
             </div>
         </div>
         </div>

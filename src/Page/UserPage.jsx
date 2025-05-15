@@ -32,16 +32,19 @@ const UserPage = () => {
       <div className="wrap-users" >
         <h2 className="title">Người dùng</h2>
         <div style={{ border: "1px solid black", marginBottom: "2rem" }}>
-          <h3>Active</h3>
+          <h3>Hoạt động</h3>
           <UserList users={users.filter(user => user.status === "Active")} />
+          {users.filter(user => user.status === "Active").length === 0 && <p>Trống</p>}
         </div>
         <div style={{ border: "1px solid black", marginBottom: "2rem" }}>
-          <p className="">Banned</p>
+          <h3 className="">Bị cấm</h3>
           <UserList users={users.filter(user => user.status === "Banned")} />
+          {users.filter(user => user.status === "Banned").length === 0 && <p>Trống</p>}
         </div>
         <div style={{ border: "1px solid black", marginBottom: "2rem" }}>
-          <p className="">Inactive</p>
+          <h3 className="">Không hoạt động</h3>
           <UserList users={users.filter(user => user.status === "Inactive")} />
+          {users.filter(user => user.status === "Inactive").length === 0 && <p>Trống</p>}
         </div>
       </div>
     </div>

@@ -9,6 +9,7 @@ const Sidebar = () => {
         <NavLink to="/">Trang chủ</NavLink>
         <NavLink to="/user">Người dùng</NavLink>
       <NavLink to="/category">Thể loại</NavLink>
+      <NavLink to="/order">Đơn người dùng đã đặt </NavLink>
     </div>
   );
 };

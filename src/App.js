@@ -20,7 +20,7 @@ import { setUser } from './redux/userSlice';
 
 
 function App() {
-  const role = useSelector(state => state.user.role)
+  const role = useSelector(state => state.user.role);
   console.log(role);
   const navigate = useNavigate();
   const dispatch = useDispatch();
