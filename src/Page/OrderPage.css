@@ -1,0 +1,11 @@
+.OrderPage {
+    height: 90vh;
+
+}
+
+.OrderPage .wrap-order {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 88vh;
+}
